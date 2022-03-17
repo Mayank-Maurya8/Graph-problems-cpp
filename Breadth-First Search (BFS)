@@ -18,7 +18,7 @@ public:
 				while(!q.empty()){
 					//we will now check the adj nodes and then also add that into the queue
 					//but before that we have to push the node into the bfs first
-					int node = q.top();
+					int node = q.front();
 					q.pop();
 					bfs.push_back(node);
 					for (auto it : adj[node]){
