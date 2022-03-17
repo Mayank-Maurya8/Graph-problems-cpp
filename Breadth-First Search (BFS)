@@ -1,0 +1,34 @@
+//BFS 
+class Solution{
+public:
+	vector<int> BFSgraph(int n, vector<int> adj[]){
+		//we will make a bfs vector which will store the nodes and another vector is for
+		vector<int> bfs;
+		// the visited nodes
+		vector<int> vis(n+1,0);
+
+		//we do this as it is important for the components 
+		for (int i=0;i<=n;i++){
+			if(!vis[i]){
+				//after checking whether that node is visited or not
+				queue<int> q;
+				//we add the node into the queue and then mark the node visited
+				q.push(i);
+				vis[i] = 1;
+				while(!q.empty()){
+					//we will now check the adj nodes and then also add that into the queue
+					//but before that we have to push the node into the bfs first
+					int node = q.top();
+					q.pop();
+					bfs.push_back(node);
+					for (auto it : adj[node]){
+						if(!vis[it]){
+							q.push(it);
+							vis[it]=1;
+						}
+					}
+				}
+			}
+		}
+	}
+}
