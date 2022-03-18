@@ -1,0 +1,26 @@
+//dfs 
+class Solution{
+	void helper(int node, vector<int> &vis, vector<int> adj[], vector<int>storedfs){
+		storedfs.push_back(node);
+		// we store the node into the vector and then we make the visited as 1
+		vis[node]=1;
+		for(auto it : adj[node]){
+			// we will then traverse for the adj nodes
+			if(!vis[it]){
+				dfs(it, vis, adj, storedfs);
+			}
+		}
+	}
+public:
+	vector<int> DFSgraph(int n, vector<int> adj[]){
+		vector<int> storedfs;
+		vector<int> vis(n+1, 0);
+		//dfs is a recursive function so it is going to be called for all the nodes
+		for(int i=0;i<=n;i++){
+			if(!vis[i]){
+				helper(i, vis, adj, storedfs);
+			}
+		}
+		return storedfs
+	}
+};
