@@ -7,7 +7,7 @@ class Solution{
 		for(auto it : adj[node]){
 			// we will then traverse for the adj nodes
 			if(!vis[it]){
-				dfs(it, vis, adj, storedfs);
+				helper(it, vis, adj, storedfs);
 			}
 		}
 	}
