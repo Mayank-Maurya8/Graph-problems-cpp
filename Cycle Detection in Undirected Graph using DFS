@@ -1,0 +1,31 @@
+class solution{
+public:
+
+	bool cycle(int node, int par, vector<int> adj[], vector<int>& vis){
+		vis[node] = 1;
+		// we will simply mark the node as visited and then we will load its adj nodes
+		for(auto it : adj[]){
+			// there will be two times when the cycle will occur , firstly when the node is not visited
+			//and then the recursive calls becomes true at some stage when it goes deeper
+			if(!vis[it]){
+				if(cycle(it,node,adj,vis)) return true;
+
+				//other one is when the par node doesnt matches the adj node
+
+				else if(it != par) return true;
+			}
+		}
+		return false;
+	}
+
+
+	bool bfscycle(int n, vetor<int> adj[]){
+		vector<int> vis(n+1,0);
+		for(int i=1;i<=n;i++){
+			if(!vis[i]){
+				if(cycle(i, -1, adj[], vis)) return true;
+			}
+		}
+		return false;
+	}
+};
