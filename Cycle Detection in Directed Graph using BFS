@@ -1,0 +1,45 @@
+// by using kahns algorithm
+// kahns algorithm
+
+class solution{
+public:
+	vector<int> topobfs(int n , vector<int> adj){
+		queue<int> q;
+		vector<int> indeg(n,0);
+
+		// we will increment the values of the nodes based on their indegrees
+		for(int i=0;i<n;i++){
+			for(auto it: adj[i]){
+				indeg[it]++;
+			}
+		}
+
+		// push all the nodes with no indegrees
+		for(int i=0;i<n;i++){
+			if(indeg[i]== 0)
+				q.push(i);
+		}
+
+		int count = 0;
+
+		while(!q.empty()){
+			// we will take the front of the queue 
+			int node = q.front();
+			q.pop();
+			count++;
+			// find its adj nodes and decrement its values as to remove the its dependence over adj nodes
+			for(auto it: adj[node]){
+				indeg[it]--;
+				if(indeg[it] == 0){
+					q.push(it);
+				}
+			}
+		}
+
+		// if the count = n this means that the topo sort was formed for the graph 
+		// which points out that the graph was not cyclic 
+		if(count == n) return false;
+		// otherwise if the count!=n then this means that there was a cycle 
+		return true ;
+	}
+};
