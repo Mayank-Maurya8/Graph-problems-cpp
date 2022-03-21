@@ -1,0 +1,33 @@
+// we use BFS on an unweighted graph, every distance node will be updated just for once (from infinity to x), 
+//And this is the shortest distance for that node because we reach the nodes at levelwise
+
+class solution{
+	void bfssp(int n, vector<int> adj[], int src){
+		queue<int> q;
+		// initialize all the nodes with max distance
+		vector<int> dist(n,INT_MAX);
+		// make the distance of the source node 0 and then push it into the queue
+		dist[src]=0;
+		q.push(src);
+
+		while(!q.empty()){
+			int node = q.front();
+			q.pop();
+
+			for(auto it: adj[node]){
+				// check if the dist of the adj node is greater than the nodes distance +1
+				if(dist[node] + 1 < dist[it]){
+					// if yes then update it and then push it into the queue
+					dist[it] = dist[node] +1;
+					q.push(it);
+				}
+			}
+		}
+		for(int i=0;i<n;i++){
+			cout << dist[i] << " ";
+		}
+
+	}
+
+
+};
