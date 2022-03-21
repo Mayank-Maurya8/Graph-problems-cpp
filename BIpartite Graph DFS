@@ -1,0 +1,58 @@
+#include<bits/sttdc++.h>
+using namespace std;
+
+bool bipartitedfs(int node, vector<int> adj[], vector<int> color[]){
+	if (color[node] == -1) color[node] = 1;
+
+	for(auto it: adj[node]){
+		// we will traverse to the uncolored nodes and after coloring it we will again call the function
+		// to further make a chain to check its adj 
+		if(color[it] == -1){
+			color[it]= 1 - color[node];
+			// if any one of the nodes will return a false then all the returning calls will return false 
+			// finally resulting in a false at the end
+			if(!bipartitedfs(it, adj[], src[])){
+				return false;
+			}
+		// else we will check if the color of the src node and the adj node is sam or not if it is already visited
+		} else (color[it] == color[node]){
+			return false;
+		}
+		
+	}
+	return true;
+	
+}
+
+bool check(int n, vector<int> adj[]){
+	int color[n];
+	memset(color, -1, sizeof color);
+
+	// vector<int> color(n,-1)
+
+	for(int i=0;i<n;i++){
+		if(color[i] == -1){
+			if(!bipartitedfs(i, adj, color)){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+int main(){
+	int n , m;
+	cin >> n >> m;
+	for( int i=0;i<m;i++){
+		int u,v;
+		adj[v].push_back(u);
+		adj[u].push_back(v);
+	}
+	if(check(n,adj)){
+		cout << "YES";
+	} else {
+		cout << "NO";
+	}
+
+	return 0;
+}
