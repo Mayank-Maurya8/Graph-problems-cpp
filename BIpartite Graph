@@ -1,0 +1,61 @@
+#include<bits/sttdc++.h>
+using namespace std;
+
+bool bipartitebfs(int src, vector<int> adj[], vector<int> color[]){
+	queue<int> q;
+	// we will first add the source node and then color it with 1
+	q.push[src];
+	color[src] = 1;
+
+	while(!q.empty()){
+		// we will check for its adj nodes
+		int node = q.front();
+		q.pop();
+		for(auto it: adj[node]){
+			// if adj node is not visited , we will color it and then push it into the queue
+			if(color[it] == -1){
+				color[it]= 1 - color[node];
+				q.push(it);
+			// else we will check if the color of the src node and the adj node is sam or not if it is already visited
+			} else (color[it] == color[node]){
+				return false;
+			}
+		}
+	}
+	
+}
+
+bool check(int n, vector<int> adj[]){
+	int color[n];
+	memset(color, -1, sizeof color);
+
+	// vector<int> color(n,-1)
+
+	for(int i=0;i<n;i++){
+		if(color[i] == -1){
+			if(!bipartitebfs(i, adj, color)){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+//DRIVER CODE
+
+int main(){
+	int n , m;
+	cin >> n >> m;
+	for( int i=0;i<m;i++){
+		int u,v;
+		adj[v].push_back(u);
+		adj[u].push_back(v);
+	}
+	if(check(n,adj)){
+		cout << "YES";
+	} else {
+		cout << "NO";
+	}
+
+	return 0;
+}
