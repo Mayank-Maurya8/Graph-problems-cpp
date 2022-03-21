@@ -22,7 +22,7 @@ bool bipartitebfs(int src, vector<int> adj[], vector<int> color[]){
 			}
 		}
 	}
-	
+	return true;
 }
 
 bool check(int n, vector<int> adj[]){
