@@ -1,0 +1,35 @@
+bool check(int node, vector<int> adj[], vector<int> vis[], vector<int> dfsvis[]){
+	// we will make the node visited in both vis and dfsvis
+	vis[node] =1;
+	dfsvis[node] = 1;
+
+	for(auto it: adj[node]){
+		if(!vis[it]){
+			// we will traverse to all the adj nodes and visited the unvisited ones
+			if(check(it, adj, vis, dfsvis)){
+				return true ;
+			}
+			//for the others we will check if the node is visited in that vis call
+			else if(dfsvis[it])
+				return true;
+		}
+	}
+	// if we dont get the cycle then we will mark the nodes in the dfsvis as 0
+	// and return false
+	dfsvis[node] = 0;
+	return false;
+
+}
+
+bool cyclic(int n, vector<int> adj[]){
+	vector<int> vis(n,0);
+	vector<int> dfsvis(n,0);
+
+	for(int i=0;i<n;i++){
+		if(!vis[i]){
+			if(check(i, adj, vis, dfsvis))
+				return true;
+		}
+	}
+	return false;
+}
