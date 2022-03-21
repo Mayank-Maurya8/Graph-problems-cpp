@@ -1,0 +1,36 @@
+class solution{
+	void findtopo(int node,vector<int> adj, vector<int> &vis, vector<int> &st){
+		vis[node] = 1;
+		// mark the node as visited
+		// move to the adj nodes
+		for(auto it: adj[node]){
+			if(!vis[it]){
+				findtopo(it, adj, vis, st);
+			}
+		}
+		// push the nodes into the stack 
+		// in this way the adj nodes will be inserted into the stack first as compared to the node itself
+		s.push(node);
+	}
+
+public:
+	vector <int> toposort (int n, vector<int> adj[]){
+		stack <int> s;
+		vector <int> vis(n,0);
+		vector <int> topo;
+
+		for(int i=0;i<n;i++){
+			if(!vis[i]){
+				findtopo(i, adj, vis, st);
+			}
+		}
+
+		// here we will simply push the nodes in the stack into the vector which we are going to print 
+		// the elements inserted are in the lifo manner where the adj node are inserted first as compared to the node 
+		while(!s.empty()){
+			topo.push_back(s.top());
+			s.pop();
+		}
+		return topo;
+	}
+}; 
